@@ -6,7 +6,7 @@
 
 ##  General info
 
-This project consists of a primary Python script and a Flask app built in a docker container. The docker container can be accessed from docker push madirajurv/develop:text_comparison
+This project consists of a primary Python script and a Flask app built in a docker container. The docker container can be accessed from docker hub madirajurv/develop:text_comparison
 
 The Python script takes 2 strings of text as input from text entry boxes using a POST method. The script then outputs the similarity score which is represents represents a score between 0 and 1 based on the number of words that are common between both texts per sentence and the total number of words in the sentence when each sentence has more than 75% of the same words. 
 
