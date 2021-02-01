@@ -245,8 +245,11 @@ def comparison_assessor(first_text_list, second_text_list):
     #print("Text similarity score = " + str(score))
     return(score)
         
-def main(first_text, second_text):
+if __name__ == '__main__':
 
+    first_text = str(input("Enter the first text to compare: "))
+    second_text = str(input("Enter the first text to compare: "))
+    
     first_text_list = text_scrubber(first_text)
     second_text_list = text_scrubber(second_text)
 
@@ -261,4 +264,4 @@ def main(first_text, second_text):
         second_text_list.append(empty_list)
 
     similarity_score = comparison_assessor(first_text_list, second_text_list)
-    return(similarity_score)
+    print(similarity_score)
