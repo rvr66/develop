@@ -31,4 +31,5 @@ To look at score or error messages resulting from text input:
 With Docker:
 
 $ docker pull madirajurv/develop:text_comparison
+
 $ docker run -d -p 5000:5000 madirajurv/develop:text_comparison
