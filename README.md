@@ -15,9 +15,10 @@ Install Python for Windows and at the end make sure to select the following to b
 
 <img src="https://i.stack.imgur.com/GSWfw.png" alt="optional features that are required for this to work"/>
 
-Once Python installation is done, open CMD and run the following command:
+Once Python installation is done, open CMD and run the following commands:
 
 pip install requests
+
 pip install pgeocode
 
 If pip does not work, use pip3
