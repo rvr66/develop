@@ -29,4 +29,6 @@ python <location of file ex. C:/Desktop/vaccine_finder.py>
 
 With Docker:
 
-$ docker pull 
+$ docker pull madirajurv/develop:vaccine_finder
+
+$ docker run --rm --network=host --privileged -v /dev:/dev  -e DISPLAY=$DISPLAY  -v /tmp/.X11-unix:/tmp/.X11-unix -v $HOME/.Xauthority:/root/.Xauthority -it madirajurv/develop:vaccine_finder
