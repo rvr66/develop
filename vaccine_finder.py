@@ -1,7 +1,7 @@
 '''
 :Script:       vaccine_finder.py
-:Version:      0.9.9
-:Release Date: 28 February 2021
+:Version:      1.0.0
+:Release Date: 02 March 2021
 :Purpose:      Finds available vaccines in a given zip/state from multiple
                sources and notifies appropriately about availability thorugh a
                easy-to-use GUI interface. 
@@ -22,6 +22,9 @@ Change History
    Date     Version     Author                   Description
 ==========  =======  ===================  =====================================
 2021-02-28  0.9.9    Raghu Veer Madiraju  Initial Release
+2021-03-02  1.0.0    Raghu Veer Madiraju  - Text boxes allow for copying and
+                                            pasting
+                                          - Clarified language
 ==========  =======  ===================  =====================================
 
 Script Functions
@@ -115,8 +118,8 @@ def query_caller(state, cities_list, lat, long, dates):
             for city in cities_list:
                 if not city in str(response['responsePayloadData']['data']
                     [state]):
-                    result_city = {"result": city + ' does not exist in %s' 
-                        % state}
+                    result_city = {f"Participating CVS not found in {city}" 
+                        f", {state}"}
                     city_check_list.append(result_city)
                     text = json.dumps(city_check_list, indent=4,
                         sort_keys=True)
@@ -137,13 +140,13 @@ def query_caller(state, cities_list, lat, long, dates):
         result_list.append(cdc_url)
         text = json.dumps(result_list, indent=4, sort_keys=True)
         text_area.insert(tk.INSERT, text)
-        text_area.configure(state ='disabled')
+        text_area.configure(state ='normal')
     else:
         current_time = '{0:%h %d %Y %I:%M:%S %p}'.format(datetime.now())
         text = {"No CVS appointments found as of": current_time}
         text = json.dumps(text, indent=4, sort_keys=True)
         text_area.insert(tk.INSERT, text)
-        text_area.configure(state ='disabled')
+        text_area.configure(state ='normal')
 
     # Walgreens
 
@@ -226,13 +229,13 @@ def query_caller(state, cities_list, lat, long, dates):
         result_list.append(cdc_url)
         text = json.dumps(result_list, indent=4, sort_keys=True)
         text_area3.insert(tk.INSERT, text)
-        text_area3.configure(state ='disabled')
+        text_area3.configure(state ='enabled')
     else:
         current_time = '{0:%h %d %Y %I:%M:%S %p}'.format(datetime.now())
         text = {"No other appointments found as of": current_time}
         text = json.dumps(result_list, indent=4, sort_keys=True)
         text_area3.insert(tk.INSERT, text)
-        text_area3.configure(state ='disabled')
+        text_area3.configure(state ='normal')
         
 
 class Job(threading.Thread):
@@ -415,7 +418,7 @@ if __name__ == "__main__":
     "https://www.walgreens.com/topic/promotion/covid-vaccine.jsp"
 
     text_area0.insert(tk.INSERT, cdc_url)
-    text_area0.configure(state ='disabled', bg="yellow")
+    text_area0.configure(state ='normal', bg="yellow")
     label_f1 = tk.Label(root, text="Availability at CVS")
     label_f1.grid(row=11, column=0, pady=5, sticky=tk.NW)
 
@@ -467,8 +470,8 @@ if __name__ == "__main__":
     
     label2 = tk.Label(root, text='Enter Zip Code', font = ("Calibri", 14)
         ).grid(row=1, sticky=E, columnspan=2)
-    label3 = tk.Label(root, text='Enter State', font = ("Calibri", 14)
-        ).grid(row=2, sticky=E, columnspan=2)
+    label3 = tk.Label(root, text='Enter State Abbreviation', font = 
+        ("Calibri", 14)).grid(row=2, sticky=E, columnspan=2)
 
     label5 = tk.Label(root, text='Enter Cities to check (CVS only filter)',
         font = ("Calibri", 14)).grid(row=4, column=0, sticky=E, columnspan=2)
