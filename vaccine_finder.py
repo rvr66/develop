@@ -25,6 +25,7 @@ Change History
 2021-03-02  1.0.0    Raghu Veer Madiraju  - Text boxes allow for copying and
                                             pasting
                                           - Clarified language
+2021-03-20  1.0.1    Raghu Veer Madiraju  Error handling for Walgreens
 ==========  =======  ===================  =====================================
 
 Script Functions
@@ -171,21 +172,27 @@ def query_caller(state, cities_list, lat, long, dates):
                'method': 'POST'}
 
     r = tr.post(url, headers = headers, json = payload)
-    response = r.json()
-    if response['appointmentsAvailable'] == True:
-        result_list.append(cdc_url)
-        messagebox.showinfo(title="From Walgreens", 
-            text="Walgreens Appointments available")
-        text = json.dumps(text, indent=4, sort_keys=True)
-        text_area2.insert(tk.INSERT, text)
-        text_area2.configure(state ='disabled')
+    if r.status_code == 200:
+        response = r.json()
+        if response['appointmentsAvailable'] == True:
+            result_list.append(cdc_url)
+            messagebox.showinfo(title="From Walgreens", 
+                text="Walgreens Appointments available")
+            text = json.dumps(text, indent=4, sort_keys=True)
+            text_area2.insert(tk.INSERT, text)
+            text_area2.configure(state ='disabled')
+        else:
+            current_time = '{0:%h %d %Y %I:%M:%S %p}'.format(datetime.now())
+            text = {"No Walgreens appointments found as of": current_time}
+            text = json.dumps(text, indent=4, sort_keys=True)
+            text_area2.insert(tk.INSERT, text)
+            text_area2.configure(state ='disabled')
     else:
         current_time = '{0:%h %d %Y %I:%M:%S %p}'.format(datetime.now())
-        text = {"No Walgreens appointments found as of": current_time}
+        text = {"Walgreens functionality not working as of": current_time}
         text = json.dumps(text, indent=4, sort_keys=True)
         text_area2.insert(tk.INSERT, text)
         text_area2.configure(state ='disabled')
-
 
     # CDC - uses url parameters
 
