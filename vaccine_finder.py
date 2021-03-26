@@ -1,7 +1,7 @@
 '''
 :Script:       vaccine_finder.py
-:Version:      1.0.0
-:Release Date: 02 March 2021
+:Version:      1.0.2
+:Release Date: 26 March 2021
 :Purpose:      Finds available vaccines in a given zip/state from multiple
                sources and notifies appropriately about availability thorugh a
                easy-to-use GUI interface. 
@@ -26,6 +26,7 @@ Change History
                                             pasting
                                           - Clarified language
 2021-03-20  1.0.1    Raghu Veer Madiraju  Error handling for Walgreens
+2021-03-26  1.0.2    Raghu Veer Madiraju  Updated links and added J&J vaccine
 ==========  =======  ===================  =====================================
 
 Script Functions
@@ -54,6 +55,8 @@ def query_caller(state, cities_list, lat, long, dates):
     '''
 
     cdc_url = {"visit_for_more_info" : "https://vaccinefinder.org/search/"}
+    cvs_url = {"visit_for_more_info": 
+        "https://www.cvs.com/immunizations/covid-19-vaccine"}
 
     # Generating 3 new text areas so that the boxes can be essentially
     # refreshed on every call with new information
@@ -138,16 +141,16 @@ def query_caller(state, cities_list, lat, long, dates):
         result_list.extend(city_check_list)
         messagebox.showinfo(title="From CVS", 
                 message="CVS appointments available")
-        result_list.append(cdc_url)
+        result_list.append(cvs_url)
         text = json.dumps(result_list, indent=4, sort_keys=True)
         text_area.insert(tk.INSERT, text)
-        text_area.configure(state ='normal')
+        text_area.configure(state ='disabled')
     else:
         current_time = '{0:%h %d %Y %I:%M:%S %p}'.format(datetime.now())
         text = {"No CVS appointments found as of": current_time}
         text = json.dumps(text, indent=4, sort_keys=True)
         text_area.insert(tk.INSERT, text)
-        text_area.configure(state ='normal')
+        text_area.configure(state ='disabled')
 
     # Walgreens
 
@@ -200,7 +203,8 @@ def query_caller(state, cities_list, lat, long, dates):
         "v1/provider-locations/search?")
 
     payload = {"medicationGuids": ["779bfe52-0dd8-4023-a183-457eb100fccc",
-        "a84fb9ed-deb4-461c-b785-e17c782ef88b"],
+        "a84fb9ed-deb4-461c-b785-e17c782ef88b",
+        "784db609-dc1f-45a5-bad6-8db02e79d44f"],
     "lat": lat,
     "long": long,
     "radius": 50
@@ -236,13 +240,13 @@ def query_caller(state, cities_list, lat, long, dates):
         result_list.append(cdc_url)
         text = json.dumps(result_list, indent=4, sort_keys=True)
         text_area3.insert(tk.INSERT, text)
-        text_area3.configure(state ='enabled')
+        text_area3.configure(state ='disabled')
     else:
         current_time = '{0:%h %d %Y %I:%M:%S %p}'.format(datetime.now())
         text = {"No other appointments found as of": current_time}
         text = json.dumps(result_list, indent=4, sort_keys=True)
         text_area3.insert(tk.INSERT, text)
-        text_area3.configure(state ='normal')
+        text_area3.configure(state ='disabled')
         
 
 class Job(threading.Thread):
