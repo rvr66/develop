@@ -9,7 +9,7 @@ Finds available vaccines in a given zip/state from multiple sources and notifies
 
 ## Windows Installation
 
-1. Get zip file from here: https://drive.google.com/file/d/1TW5w-P3zuYqJ0f2rTW6SEnmo9wOXEGId/view?usp=sharing
+1. Get zip file from here: https://drive.google.com/file/d/1g9NDeNz0YSrYd2XNgpVAFOwSDsIhWkSu/view?usp=sharing
 2. Extract zip into folder
 3. Run vaccine_finder.exe
 
